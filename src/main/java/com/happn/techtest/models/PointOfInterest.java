@@ -1,8 +1,10 @@
 package com.happn.techtest.models;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 @EqualsAndHashCode
+@Getter
 public class PointOfInterest {
 
     private final int id;
