@@ -4,10 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.happn.techtest.model.GridZone;
 
 import java.util.Collections;
-import java.util.List;
 
 public class JsonFormatter {
 
@@ -21,17 +19,17 @@ public class JsonFormatter {
         throw new UnsupportedOperationException("Utility class should not be instantiated");
     }
 
-    public static String simpleKeyValueMap(String value, int numberOfPOIs) {
+    public static String simpleKeyValueMap(Object key, Object value) {
         try {
-            return MAPPER.writeValueAsString(Collections.singletonMap(value, numberOfPOIs));
+            return MAPPER.writeValueAsString(Collections.singletonMap(key, value));
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Unexpected exception when returning JSON value");
         }
     }
 
-    public static String listAsJson(List<GridZone> nDensestZone) {
+    public static String objectAsJson(Object object) {
         try {
-            return MAPPER.writeValueAsString(nDensestZone);
+            return MAPPER.writeValueAsString(object);
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Unexpected exception when returning JSON value");
         }

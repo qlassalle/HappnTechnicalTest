@@ -11,7 +11,7 @@ public class PointOfInterestController {
     private final PointOfInterestService service = new PointOfInterestService();
 
     public String getNDensestZone(List<PointOfInterest> pois, int n) {
-        return JsonFormatter.listAsJson(service.getNDensestZone(pois, n));
+        return JsonFormatter.objectAsJson(service.getNDensestZone(pois, n));
     }
 
     public String getNumberOfPOIsInZone(List<PointOfInterest> pois, double minLat, double minLon) {
