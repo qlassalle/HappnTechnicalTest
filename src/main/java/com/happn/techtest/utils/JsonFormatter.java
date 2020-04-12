@@ -7,16 +7,10 @@ import java.util.Collections;
 
 public class JsonFormatter {
 
-    private static JsonFormatter INSTANCE;
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
-    private JsonFormatter() {}
-
-    public static JsonFormatter getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new JsonFormatter();
-        }
-        return INSTANCE;
+    private JsonFormatter() {
+        throw new UnsupportedOperationException("Utility class should not be instantiated");
     }
 
     public static String simpleKeyValueMap(String value, int numberOfPOIs) {
