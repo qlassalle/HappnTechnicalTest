@@ -10,6 +10,7 @@
 * I used Lombok to avoid writing boilerplate code
 * I used JUnit 5 to benefit from Parameterized tests  
 * I used the jackson library to easily create JSON response
+* I used the Spark library to provide a simple web service 
 
 ## Intuition
 
@@ -31,7 +32,7 @@ some frequency might not have any zone. We also have to check that we do not add
 
 ## Architecture
  
-I decoupled my application in four packages:
+I decoupled my application in five packages:
 ### Controller
 I created a controller layer to decouple services and controller responses. It allows us to have services that only
 returns the expected result and isn't tied to any implementation (returning JSON, returning XML or any output). The
@@ -39,17 +40,18 @@ controller is in charge of deciding of the correct output. In our example, it si
 returns it, wrapped in JSON.
     
 ### Input
-I created an input package that contains simple classes to handle deserialization of inputs as explained in the
-handout like
+I created an input package that contains simple classes to handle deserialization of inputs as defined in the
+handout:
  
  ` --nbpoi '{\"min_lat\":6.5,\"min_lon\":-7}' `
  
  ` --densest '{\"n\":2}' `
      
+For the web service, I decided to take the same objects as input. 
 
 ### Model
 I created a model layer to contain all the classes representing the objects such as PointOfInterest or a grid in our
-"world". Classes in the model package should only be used by the classes in our _service_ package
+"world". Classes in the model package should only be used by the classes in our _service_ package.
 
 ### Service
 I created a service layer to contain all the classes embedding the logic of this little app. They are in charge of
@@ -57,7 +59,7 @@ the required computing.
 
 ### Util
 I created a util layer to contain all the utility classes that I need. It contains a JsonFormatter which allows us to
-create JSON object. It also contains our TSV parser.
+create JSON object. It also contains our TSV parser permitting us to parse a TSV file.
  
 ## Coding choices
 * For my unit tests, I created mmy test case without relying on my parser as I don't want to couple my test and make
@@ -65,3 +67,4 @@ create JSON object. It also contains our TSV parser.
 * I decided not to test the controller part as it simply does a writeValueAsString(Object o) relying on the Jackson
 library. I don't want to test the lib therefore I didn't add testcases. **This point can be discussed and may vary
 between developers**.
+* I decided to use post request for the two routes of my web service as this allows me to receive JSON inputs 

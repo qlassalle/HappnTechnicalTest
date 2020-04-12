@@ -3,6 +3,7 @@ package com.happn.techtest.util;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.happn.techtest.model.GridZone;
 
 import java.util.Collections;
@@ -11,6 +12,10 @@ import java.util.List;
 public class JsonFormatter {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
+
+    static {
+        MAPPER.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+    }
 
     private JsonFormatter() {
         throw new UnsupportedOperationException("Utility class should not be instantiated");
