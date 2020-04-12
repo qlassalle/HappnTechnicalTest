@@ -38,6 +38,15 @@ returns the expected result and isn't tied to any implementation (returning JSON
 controller is in charge of deciding of the correct output. In our example, it simply does a call to service and
 returns it, wrapped in JSON.
     
+### Input
+I created an input package that contains simple classes to handle deserialization of inputs as explained in the
+handout like
+ 
+ ` --nbpoi '{\"min_lat\":6.5,\"min_lon\":-7}' `
+ 
+ ` --densest '{\"n\":2}' `
+     
+
 ### Model
 I created a model layer to contain all the classes representing the objects such as PointOfInterest or a grid in our
 "world". Classes in the model package should only be used by the classes in our _service_ package
