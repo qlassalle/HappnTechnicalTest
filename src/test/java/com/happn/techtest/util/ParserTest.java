@@ -1,6 +1,6 @@
-package com.happn.techtest.utils;
+package com.happn.techtest.util;
 
-import com.happn.techtest.models.PointOfInterest;
+import com.happn.techtest.model.PointOfInterest;
 import lombok.AllArgsConstructor;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

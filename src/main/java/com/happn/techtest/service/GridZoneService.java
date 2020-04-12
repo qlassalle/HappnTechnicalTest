@@ -1,8 +1,8 @@
 package com.happn.techtest.service;
 
-import com.happn.techtest.models.GridZone;
-import com.happn.techtest.models.PointOfInterest;
-import com.happn.techtest.models.Zone;
+import com.happn.techtest.model.GridZone;
+import com.happn.techtest.model.PointOfInterest;
+import com.happn.techtest.model.Zone;
 
 import java.math.BigDecimal;
 

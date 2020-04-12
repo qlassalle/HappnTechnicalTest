@@ -1,8 +1,7 @@
 package com.happn.techtest.service;
 
-import com.happn.techtest.models.GridZone;
-import com.happn.techtest.models.PointOfInterest;
-import com.happn.techtest.utils.JsonFormatter;
+import com.happn.techtest.model.GridZone;
+import com.happn.techtest.model.PointOfInterest;
 
 import java.util.*;
 
@@ -10,14 +9,15 @@ public class PointOfInterestService {
 
     private final GridZoneService gridZoneService = new GridZoneService();
 
-    public String getNumberOfPOIInZone (List<PointOfInterest> pois, double minLat, double minLon) {
+    public int getNumberOfPOIInZone (List<PointOfInterest> pois, double minLat, double minLon) {
         int numberOfPOIs = 0;
         for (PointOfInterest pointOfInterest : pois) {
             if (pointOfInterest.getLat() > minLat && pointOfInterest.getLon() > minLon) {
                 ++numberOfPOIs;
             }
         }
-        return JsonFormatter.simpleKeyValueMap("value", numberOfPOIs);
+
+        return numberOfPOIs;
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.happn.techtest.models;
+package com.happn.techtest.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

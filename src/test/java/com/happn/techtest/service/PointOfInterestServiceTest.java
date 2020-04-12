@@ -1,9 +1,7 @@
 package com.happn.techtest.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.happn.techtest.models.GridZone;
-import com.happn.techtest.models.PointOfInterest;
+import com.happn.techtest.model.GridZone;
+import com.happn.techtest.model.PointOfInterest;
 import lombok.AllArgsConstructor;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -19,17 +17,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class PointOfInterestServiceTest {
 
     private final PointOfInterestService service = new PointOfInterestService();
-    private final ObjectMapper mapper = new ObjectMapper();
 
     @ParameterizedTest(name = "{0}")
     @MethodSource("numberOfPOIsInZoneTestCase")
-    public void shouldReturnCorrectNumberOfPOIInZone(PointOfInterestServiceTestCase testCase) throws JsonProcessingException {
-        // given
-        String expectedResult = mapper.writeValueAsString(Collections.singletonMap("value", testCase.expectedResult));
+    public void shouldReturnCorrectNumberOfPOIInZone(PointOfInterestServiceTestCase testCase) {
         // when
-        String numberOfPOIInZone = service.getNumberOfPOIInZone(testCase.pois, testCase.minLat, testCase.minLon);
+        int numberOfPOIInZone = service.getNumberOfPOIInZone(testCase.pois, testCase.minLat, testCase.minLon);
         // then
-        assertEquals(expectedResult, numberOfPOIInZone);
+        assertEquals(testCase.expectedResult, numberOfPOIInZone);
     }
 
     @ParameterizedTest(name = "{0}")

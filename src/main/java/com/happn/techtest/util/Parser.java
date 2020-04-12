@@ -1,7 +1,6 @@
-package com.happn.techtest.utils;
+package com.happn.techtest.util;
 
-import com.happn.techtest.models.PointOfInterest;
-import com.sun.xml.internal.rngom.parse.Parseable;
+import com.happn.techtest.model.PointOfInterest;
 import com.univocity.parsers.tsv.TsvParser;
 import com.univocity.parsers.tsv.TsvParserSettings;
 

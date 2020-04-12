@@ -1,6 +1,6 @@
 package com.happn.techtest.service;
 
-import com.happn.techtest.models.Zone;
+import com.happn.techtest.model.Zone;
 import lombok.AllArgsConstructor;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
