@@ -19,16 +19,63 @@ class PointOfInterestServiceTest {
     private final PointOfInterestService service = new PointOfInterestService();
 
     @ParameterizedTest(name = "{0}")
-    @MethodSource("numberOfPOIsInZoneTestCase")
+    @MethodSource("numberOfPOIsInZoneTestCases")
     public void shouldReturnCorrectNumberOfPOIInZone(PointOfInterestServiceTestCase testCase) {
         // when
-        int numberOfPOIInZone = service.getNumberOfPOIInZone(testCase.pois, testCase.minLat, testCase.minLon);
+        long numberOfPOIInZone = service.getNumberOfPOIInZone(testCase.pois, testCase.minLat, testCase.minLon);
         // then
         assertEquals(testCase.expectedResult, numberOfPOIInZone);
     }
 
+    private static Stream<Arguments> numberOfPOIsInZoneTestCases() {
+        return Stream.of(
+            Arguments.of(
+                new PointOfInterestServiceTestCase(
+                    Arrays.asList(
+                        generatePointOfInterest("1", "-27.3", "8.1"),
+                        generatePointOfInterest("2", "-27.1", "8.4"),
+                        generatePointOfInterest("3", "6.6", "-6.9")
+                    ),
+                    -27.5, 8,2,
+                    "Should return correct number for expected position")
+            ),
+            Arguments.of(
+                new PointOfInterestServiceTestCase(
+                    Arrays.asList(
+                        generatePointOfInterest("1", "-27.3", "8.1"),
+                        generatePointOfInterest("2", "-27.1", "8.4"),
+                        generatePointOfInterest("3", "6.6", "-6.9")
+                    ),
+                    -27.5, 8.5, 0,
+                    "Should return 0 when no pointOfInterest in zone")
+            ),
+            Arguments.of(
+                new PointOfInterestServiceTestCase(
+                    Arrays.asList(
+                        generatePointOfInterest("1", "-27.3", "8.1"),
+                        generatePointOfInterest("2", "29", "-7.1"),
+                        generatePointOfInterest("3", "6.6", "-6.9")
+                    ),
+                    6.5,-7, 1,
+                    "Should return correct number for other expected position"
+                )
+            ),
+            Arguments.of(
+                new PointOfInterestServiceTestCase(
+                    Arrays.asList(
+                        generatePointOfInterest("1", "-27.3", "8.1"),
+                        generatePointOfInterest("2", "-27.1", "8.4"),
+                        generatePointOfInterest("3", "6.6", "-6.9")
+                    ),
+                    -27.5,-7, 3,
+                    "Should return correct number for large position"
+                )
+            )
+        );
+    }
+
     @ParameterizedTest(name = "{0}")
-    @MethodSource("densestZoneTestCase")
+    @MethodSource("densestZoneTestCases")
     public void shouldReturnCorrectNDensestZone(PointOfInterestServiceDensestZoneTestCase testCase) {
         // when
         List<GridZone> actualGridZone = service.getNDensestZone(testCase.pois, testCase.n);
@@ -36,7 +83,7 @@ class PointOfInterestServiceTest {
         assertEquals(testCase.expectedGridZoneList, actualGridZone);
     }
 
-    private static Stream<Arguments> densestZoneTestCase() {
+    private static Stream<Arguments> densestZoneTestCases() {
         return Stream.of(
             Arguments.of(
                 new PointOfInterestServiceDensestZoneTestCase(
@@ -83,53 +130,6 @@ class PointOfInterestServiceTest {
         );
     }
 
-    private static Stream<Arguments> numberOfPOIsInZoneTestCase() {
-        return Stream.of(
-            Arguments.of(
-                new PointOfInterestServiceTestCase(
-                    Arrays.asList(
-                        generatePointOfInterest("1", "-27.3", "8.1"),
-                        generatePointOfInterest("2", "-27.1", "8.4"),
-                        generatePointOfInterest("3", "6.6", "-6.9")
-                    ),
-                    -27.5, 8,2,
-                    "Should return correct number for expected position")
-            ),
-            Arguments.of(
-                new PointOfInterestServiceTestCase(
-                    Arrays.asList(
-                        generatePointOfInterest("1", "-27.3", "8.1"),
-                        generatePointOfInterest("2", "-27.1", "8.4"),
-                        generatePointOfInterest("3", "6.6", "-6.9")
-                    ),
-                    -27.5, 8.5, 0,
-                    "Should return 0 when no pointOfInterest in zone")
-            ),
-            Arguments.of(
-                new PointOfInterestServiceTestCase(
-                    Arrays.asList(
-                        generatePointOfInterest("1", "-27.3", "8.1"),
-                        generatePointOfInterest("2", "29", "-7.1"),
-                        generatePointOfInterest("3", "6.6", "-6.9")
-                    ),
-                    6.5,-7, 1,
-                    "Should return correct number for other expected position"
-                    )
-            ),
-            Arguments.of(
-                new PointOfInterestServiceTestCase(
-                    Arrays.asList(
-                        generatePointOfInterest("1", "-27.3", "8.1"),
-                        generatePointOfInterest("2", "-27.1", "8.4"),
-                        generatePointOfInterest("3", "6.6", "-6.9")
-                    ),
-                    -27.5,-7, 3,
-                    "Should return correct number for large position"
-                )
-            )
-        );
-    }
-
     private static PointOfInterest generatePointOfInterest(String id, String lat, String lon) {
         return new PointOfInterest(new String[]{id, lat, lon});
     }
@@ -143,7 +143,7 @@ class PointOfInterestServiceTest {
         private List<PointOfInterest> pois;
         private double minLat;
         private double minLon;
-        private int expectedResult;
+        private long expectedResult;
         private final String caseName;
 
         @Override

@@ -83,3 +83,7 @@ create JSON objects easily. It also contains our TSV parser permitting us to par
 relying on the Jackson library by calling my JsonFormatter class. I don't want to test the lib therefore I didn't add
 test cases for this part. **This point can be discussed and may vary between developers**.
 * I decided to use post requests for the two routes of my web service as this allows me to receive JSON inputs.
+* There were several ways to put a position in the grid. I didn't want to do many String manipulations with cast all
+over the places, therefore I decided to rely on the BigDecimal class. Code in the GridZoneService class isn't
+straightforward so I added as much comments as possible to ease comprehension. I generally prefer to have a self
+-documenting code, but I didn't manage to write something satisfying in my opinion so I added comments.

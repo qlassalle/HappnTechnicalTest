@@ -9,10 +9,10 @@ import lombok.Getter;
 @Getter
 public class GridZone {
 
-    private double minLat;
-    private double maxLat;
-    private double minLon;
-    private double maxLon;
+    private final double minLat;
+    private final double maxLat;
+    private final double minLon;
+    private final double maxLon;
 
     public GridZone(Zone latZone, Zone lonZone) {
         this.minLat = latZone.getLowerBoundary();
